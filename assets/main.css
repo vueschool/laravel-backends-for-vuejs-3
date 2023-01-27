@@ -1,0 +1,81 @@
+body {
+  @apply bg-gray-200;
+}
+h1 {
+  @apply text-3xl font-thin mb-3;
+}
+
+.btn {
+  text-decoration: none;
+  background: var(--fk-bg-submit);
+  color: var(--fk-color-submit);
+  font-size: var(--fk-font-size-button);
+  border-radius: var(--fk-border-radius);
+  cursor: pointer;
+  display: inline-flex;
+  width: auto;
+  justify-content: center;
+  padding: var(--fk-padding-button);
+  margin: var(--fk-margin-button);
+  position: relative;
+  transition: filter 0.25s;
+  border: 1px solid transparent;
+  line-height: var(--fk-line-height-button);
+}
+table {
+  @apply rounded overflow-hidden;
+}
+table thead {
+  @apply text-left bg-gray-800 text-white rounded-t;
+}
+table th {
+  @apply font-normal p-2;
+}
+table td {
+  border-bottom: 1px solid;
+  @apply p-3 border-gray-300;
+}
+
+button.formkit-input,
+.btn {
+  @apply bg-gray-800 !important;
+}
+
+/**
+Apply formkit like styles to non formkit inputs
+this way it looks the same before and after we use formkit
+**/
+form:not(.formkit-form) {
+  margin-bottom: 10px;
+  max-width: var(--fk-max-width-input);
+}
+label:not(.formkit-label) {
+  margin: var(--fk-margin-outer);
+  display: block;
+}
+label > div {
+  display: block;
+  margin: var(--fk-margin-label);
+  padding: var(--fk-padding-label);
+  font-family: var(--fk-font-family-label);
+  font-size: var(--fk-font-size-label);
+  font-weight: var(--fk-font-weight-label);
+  line-height: var(--fk-line-height-label);
+}
+input:not(.formkit-input) {
+  display: block;
+  width: 100%;
+  border-radius: var(--fk-border-radius);
+  padding: var(--fk-padding-input);
+  font-family: var(--fk-font-family-input);
+  font-size: var(--fk-font-size-input);
+  font-weight: var(--fk-font-weight-input);
+  line-height: var(--fk-line-height-input);
+  background-color: var(--fk-bg-input);
+  color: var(--fk-color-input);
+  position: relative;
+  box-shadow: var(--fk-border-box-shadow);
+  border-radius: var(--fk-border-radius);
+  display: flex;
+  align-items: center;
+}
