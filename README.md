@@ -1,6 +1,11 @@
-# Nuxt 3 Minimal Starter
+# "Laravel Backends for Vue.js 3" Front End Source Code
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+[![](https://vueschool.io/media/1b4b17d7dfaf4a708fbd160ba767b6d8/laravel-backends-for-vue-js-3-not-transparent.jpg)](https://vueschool.io/courses/laravel-backends-for-vue-js-3)
+
+This repository contains the front end source code for the course: "Laravel Backends for Vue.js 3".
+
+The main branch is the starting point for the course (the boilerplate code) and the solutions branch
+includes commits for each lesson.
 
 ## Setup
 
