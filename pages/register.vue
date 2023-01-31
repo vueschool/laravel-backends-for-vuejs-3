@@ -24,7 +24,7 @@ definePageMeta({
 
       <label>
         <div>Confirm Password</div>
-        <input type="confirm_password" />
+        <input type="password" />
       </label>
 
       <button class="btn">Register</button>
