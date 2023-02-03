@@ -1,3 +1,8 @@
+<script setup>
+definePageMeta({
+  middleware: ["auth"],
+});
+</script>
 <template>
   <h1>Create New Link</h1>
   <GoBack>or go back to links</GoBack>
