@@ -10,7 +10,10 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   axios.interceptors.response.use(
     (res) => res,
     (error) => {
-      if ([401, 419].includes(error.response.status)) {
+      if (
+        [401, 419].includes(error.response.status) &&
+        !error.request.responseURL.endsWith("/api/user")
+      ) {
         const { logout } = useAuth();
         logout();
       } else {
