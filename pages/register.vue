@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { AxiosError } from "axios";
 import { RegisterPayload } from "@/types";
 import type { FormKitNode } from "@formkit/core";
 
@@ -14,9 +13,7 @@ async function handleRegister(payload: RegisterPayload, node?: FormKitNode) {
   try {
     await register(payload);
   } catch (err) {
-    if (err instanceof AxiosError && err.response?.status === 422) {
-      node?.setErrors([], err.response.data.errors);
-    }
+    handleInvalidForm(err, node);
   }
 }
 </script>
