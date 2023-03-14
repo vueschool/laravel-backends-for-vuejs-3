@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import axios from "axios";
 import { TailwindPagination } from "laravel-vue-pagination";
-const data = ref([]);
-const page = ref(1);
+import type { PaginatedResponse, Link } from "@/types";
+const data = ref<PaginatedResponse<Link> | null>(null);
+const page = ref(useRoute().query.page || 1);
 
 await getLinks();
-let links = computed(() => data.value.data);
+let links = computed(() => data.value?.data);
 
 watch(page, async () => {
   getLinks();
+  useRouter().push({ query: { page: page.value } });
 });
 
 async function getLinks() {
