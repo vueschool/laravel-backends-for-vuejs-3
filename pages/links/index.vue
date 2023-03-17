@@ -62,7 +62,7 @@ definePageMeta({
             <th class="w-[10%]">Edit</th>
             <th class="w-[10%]">Trash</th>
             <th class="w-[6%] text-center">
-              <button>
+              <button @click="getLinks">
                 <IconRefresh class="w-[15px] relative top-[2px]" />
               </button>
             </th>
