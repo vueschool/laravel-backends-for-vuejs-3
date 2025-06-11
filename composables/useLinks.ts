@@ -1,4 +1,3 @@
-import axios from "axios";
 import type { PaginatedResponse, Link, RawLink } from "~~/types";
 import type { Ref } from "vue";
 
@@ -7,6 +6,7 @@ interface UseLinksOptions {
 }
 
 export const useLinks = ({ queries = ref({}) }: UseLinksOptions = {}) => {
+  const { $api } = useNuxtApp();
   const slug = "links";
   const paginatedData = ref<PaginatedResponse<Link>>();
   const item = ref<Link>();
@@ -24,9 +24,9 @@ export const useLinks = ({ queries = ref({}) }: UseLinksOptions = {}) => {
     qs = { ...queries.value, ...qs };
     // @ts-expect-error page is number and that's ok
     const q = new URLSearchParams(qs).toString();
-    const { data } = await axios.get<PaginatedResponse<RawLink>>(
-      `/${slug}?${q}`
-    );
+    const data = (await $api(
+      `/api/${slug}?${q}`
+    )) as PaginatedResponse<RawLink>;
     return (paginatedData.value = {
       ...data,
       data: data.data.map((i) => adapter(i)),
@@ -36,25 +36,33 @@ export const useLinks = ({ queries = ref({}) }: UseLinksOptions = {}) => {
 
   // find one link by id
   async function find(id: string | number) {
-    const { data } = await axios.get<RawLink>(`/${slug}/${id}`);
+    const data = (await $api(`/api/${slug}/${id}`)) as RawLink;
     return (item.value = adapter(data));
   }
 
   // create a new link
   async function create(payload: Partial<Link>) {
-    const { data } = await axios.post<RawLink>(`/${slug}`, payload);
+    const data = (await $api(`/api/${slug}`, {
+      method: "POST",
+      body: payload,
+    })) as RawLink;
     return (item.value = adapter(data));
   }
 
   // update an existing link
   async function update(id: string | number, payload: Partial<Link>) {
-    const { data } = await axios.put<RawLink>(`/${slug}/${id}`, payload);
+    const data = (await $api(`/api/${slug}/${id}`, {
+      method: "PUT",
+      body: payload,
+    })) as RawLink;
     return (item.value = adapter(data));
   }
 
   // delete an existing item
   async function destroy(id: string | number) {
-    await axios.delete(`/${slug}/${id}`);
+    await $api(`/api/${slug}/${id}`, {
+      method: "DELETE",
+    });
   }
 
   return {

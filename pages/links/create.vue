@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import axios from "axios";
 import type { FormKitNode } from "@formkit/core";
 import { nanoid } from "nanoid";
 
@@ -7,11 +6,16 @@ definePageMeta({
   middleware: ["auth"],
 });
 
+const { $api } = useNuxtApp();
+
 async function createLink(payload, node?: FormKitNode) {
   try {
-    await axios.post("/links", {
-      ...payload,
-      short_link: nanoid(8),
+    await $api("/api/links", {
+      method: "POST",
+      body: {
+        ...payload,
+        short_link: nanoid(8),
+      },
     });
     useRouter().push("/links");
   } catch (err) {

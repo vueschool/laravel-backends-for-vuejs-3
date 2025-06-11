@@ -1,13 +1,12 @@
-import axios from "axios";
 import type { User, LoginPayload, RegisterPayload } from "@/types";
 
 const user = ref<User | null>(null);
 export const useAuth = () => {
+  const { $api } = useNuxtApp();
   async function getUser(): Promise<User | null> {
     if (user.value) return user.value;
     try {
-      const res = await axios.get("/user");
-      const user = res.data;
+      const user = await $api("/api/user");
       return {
         ...user,
         created_at: new Date(user.created_at),
@@ -29,16 +28,24 @@ export const useAuth = () => {
   }
 
   async function login(payload: LoginPayload) {
-    await axios.post("/login", payload);
+    await $api(`/login`, {
+      method: "POST",
+      body: payload,
+    });
     useRouter().push("/me");
   }
   async function logout() {
-    await axios.post("/logout");
+    await $api(`http://localhost/logout`, {
+      method: "POST",
+    });
     user.value = null;
     useRouter().replace("/login");
   }
   async function register(payload: RegisterPayload) {
-    await axios.post("/register", payload);
+    await $api(`http://localhost/register`, {
+      method: "POST",
+      body: payload,
+    });
     await login({
       email: payload.email,
       password: payload.password,
